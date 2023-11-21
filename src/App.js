@@ -4,11 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const App = () => {
   const [selectionMode, setSelectionMode] = useState(false);
   const [selectedElements, setSelectedElements] = useState([]);
-  const [selectBtn, setSelectBtn] = useState(false);
 
   const toggleSelectionMode = () => {
     setSelectionMode(!selectionMode);
-    setSelectBtn(true);
     setSelectedElements([]);
   };
 
