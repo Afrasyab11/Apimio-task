@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 const App = () => {
   const [selectionMode, setSelectionMode] = useState(false);
   const [selectedElements, setSelectedElements] = useState([]);
+  const [color, setColor] = useState(false);
+  const [btnName, setBtnName] = useState("");
 
   const toggleSelectionMode = () => {
     setSelectionMode(!selectionMode);
     setSelectedElements([]);
+    setColor(true);
   };
 
   const sendEvent = (type, label) => {
@@ -16,7 +18,8 @@ const App = () => {
     }
   };
 
-  const handleInteraction = (event, type, label, color) => {
+  const handleInteraction = (event, type, label) => {
+    setBtnName(label);
     if (selectionMode) {
       event.preventDefault();
 
@@ -44,7 +47,7 @@ const App = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid mt-5">
       <div className="row">
         <div className="col-sm-12 col-md-4">
           {selectionMode && (
@@ -67,7 +70,9 @@ const App = () => {
           <div className="d-flex justify-content-center">
             <button
               className={`btn btn-primary me-2 ${
-                selectionMode ? "interactive-element " : "border border-danger"
+                selectionMode && color && btnName === "Subscribe"
+                  ? "interactive-element btn-dark"
+                  : "btn-primary"
               }`}
               onClick={(e) => handleInteraction(e, "button", "Subscribe")}
             >
@@ -75,7 +80,9 @@ const App = () => {
             </button>
             <button
               className={`btn btn-primary me-2 ${
-                selectionMode ? "interactive-element" : ""
+                selectionMode && color && btnName === "Download"
+                  ? "interactive-element btn-dark"
+                  : "btn-primary"
               }`}
               onClick={(e) => handleInteraction(e, "button", "Download")}
             >
@@ -83,7 +90,9 @@ const App = () => {
             </button>
             <button
               className={`btn btn-primary me-2 ${
-                selectionMode ? "interactive-element" : ""
+                selectionMode && color && btnName === "Contact Us"
+                  ? "interactive-element btn-dark"
+                  : "btn-primary"
               }`}
               onClick={(e) => handleInteraction(e, "button", "Contact Us")}
             >
@@ -94,15 +103,19 @@ const App = () => {
           <div className="d-flex justify-content-center mt-3">
             <button
               className={`btn btn-primary me-2 ${
-                selectionMode ? "interactive-element" : ""
+                selectionMode && color && btnName === "Read More"
+                  ? "interactive-element btn-dark"
+                  : "btn-primary"
               }`}
               onClick={(e) => handleInteraction(e, "link", "Read More")}
             >
               Read More
             </button>
             <button
-              className={`btn btn-primary me-2 ${
-                selectionMode ? "interactive-element" : ""
+              className={`btn  btn-primary me-2 ${
+                selectionMode && color && btnName === "Visit Our Store"
+                  ? "interactive-element btn-dark"
+                  : "btn-primary"
               }`}
               onClick={(e) => handleInteraction(e, "link", "Visit Our Store")}
             >
@@ -112,14 +125,39 @@ const App = () => {
 
           <div className="d-flex justify-content-center mt-3">
             <select
-              className={`form-select me-2 ${
-                selectionMode ? "interactive-element" : ""
-              }`}
+              className={`form-select me-2 `}
               onChange={(e) => handleInteraction(e, "dropdown", e.target.value)}
             >
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
+              <option
+                className={`${
+                  selectionMode && color && btnName === "Option 1"
+                    ? "interactive-element bg-dark text-light"
+                    : "btn-primary"
+                }`}
+                value="Option 1"
+              >
+                Option 1
+              </option>
+              <option
+                className={`${
+                  selectionMode && color && btnName === "Option 2"
+                    ? "interactive-element bg-dark text-light"
+                    : "btn-primary"
+                }`}
+                value="Option 2"
+              >
+                Option 2
+              </option>
+              <option
+                className={`${
+                  color && btnName === "Option 3"
+                    ? " bg-dark text-light"
+                    : "btn-primary"
+                }`}
+                value="Option 3"
+              >
+                Option 3
+              </option>
             </select>
           </div>
 
@@ -128,7 +166,7 @@ const App = () => {
               className={`interactive-element`}
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              src="https://www.youtube.com/embed/D0UnqGm_miA"
               frameBorder="0"
               allowFullScreen
               title="Dummy Video"
@@ -142,7 +180,9 @@ const App = () => {
         <div className="col-md-8 d-flex justify-content-center ">
           <button
             className={`btn btn-primary me-2 ${
-              selectionMode ? "interactive-element border border-danger" : ""
+              selectionMode
+                ? "interactive-element border border-danger bg-success"
+                : ""
             }`}
             onClick={toggleSelectionMode}
           >
